@@ -6,8 +6,13 @@ on:
   workflow_dispatch: 
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Build server"
+
   deploy_prod:
     if: contains( github.ref, 'master')
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Deploy to production server
+      - run: echo "Deploy to production server"
