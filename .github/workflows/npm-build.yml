@@ -24,7 +24,9 @@ jobs:
 
       - run: npm install
       - run: npm build
- 
+          ${{ GITHUB_SHA }}
+                
+
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
