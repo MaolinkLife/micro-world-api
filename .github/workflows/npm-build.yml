@@ -3,31 +3,45 @@ name: GitHub Pages Deploy
 on:
   push:
     branches:
-    - main
+    - master
     - release/*
   workflow_dispatch: 
 
 jobs:
-  init:
+  # Build job
+  build:
     runs-on: ubuntu-latest
-    permissions:
+    permissions: 
       contents: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
-       
       - name: npm install and build
-      #  uses: actions/setup-node@v3
-      #  with:
-      #   node-version: '14'
+      - run: echo "${{ github.GITHUB_SHA }}"
+    # <Not provided for brevity>
+    # At a minimum this job should upload artifacts using actions/upload-pages-artifact
 
-      - run: npm install
-      - run: npm build
-          echo ${{ github.GITHUB_SHA }}
-                
+  # Deploy job
+  deploy:
+    # Add a dependency to the build job
+    needs: build
 
-      - name: deploy
-        uses: peaceiris/actions-gh-pages@v3
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
