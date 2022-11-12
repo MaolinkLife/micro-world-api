@@ -79,8 +79,10 @@ jobs:
           node-version: "16"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
-        uses: actions/configure-pages@v2
-
+      - uses: actions/configure-pages@v2
+        with: 
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_NODE_TOKEN }}
+            
   # Deployment job
   deploy:
     environment:
