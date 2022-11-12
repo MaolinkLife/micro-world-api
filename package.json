@@ -1,5 +1,5 @@
 {
-    "name": "SimpleKartECommerceAPI",
+    "name": "API",
     "version": "1.0.0",
     "description": "NodeJS Express Boilerplate",
     "main": "server.js",
