@@ -45,9 +45,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: postbuild
-      - run: npm install
-      - run: npm run start
+      # - name: postbuild
+      # - run: npm install
+      # - run: npm run start
 
 
 
