@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: npm install and build
-      - run: echo "${{ github.GITHUB_SHA }}"
+
     # <Not provided for brevity>
     # At a minimum this job should upload artifacts using actions/upload-pages-artifact
 
@@ -26,7 +26,6 @@ jobs:
   deploy:
     # Add a dependency to the build job
     needs: build
-
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
       pages: write      # to deploy to Pages
@@ -45,3 +44,18 @@ jobs:
         uses: actions/deploy-pages@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+  postbuild:
+      needs: deploy
+      runs-on: ubuntu-latest
+      steps:
+      - name: postbuild
+      - uses: setup-node@v3
+        with:
+          node-version: '14'
+          
+      - run: npm install
+      - run: npm build
+
+      
+      
