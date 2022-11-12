@@ -1,4 +1,4 @@
-# SimpleKartECommerceAPI
+api
 
 ## OpenAPI 3.0 Generated NodeJS Express
 

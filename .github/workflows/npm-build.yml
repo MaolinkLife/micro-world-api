@@ -39,20 +39,13 @@ jobs:
     # Specify runner + deployment step
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
+      - name: deploy to gitHub pages
         id: deployment
         uses: actions/deploy-pages@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: postbuild
-      - uses: setup-node@v3
-        with:
-          node-version: '14'
-          
-      - uses: actions/checkout@v3
       - run: npm install
-      - run: npm start
+      - run: npm run start
 
 
       
