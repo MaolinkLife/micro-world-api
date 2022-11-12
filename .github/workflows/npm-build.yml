@@ -16,15 +16,15 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
-
+       
       - name: npm install and build
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
+      #  uses: actions/setup-node@v3
+      #  with:
+      #   node-version: '14'
 
       - run: npm install
       - run: npm build
-          ${{ GITHUB_SHA }}
+          echo ${{ github.GITHUB_SHA }}
                 
 
       - name: deploy
