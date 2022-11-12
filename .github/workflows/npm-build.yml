@@ -36,7 +36,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    # Specify runner + deployment step
+    # Specify runner + deployment ste
     runs-on: ubuntu-latest
     steps:
       - name: deploy to gitHub pages
@@ -48,5 +48,4 @@ jobs:
       - run: npm run start
 
 
-      
-      
+
