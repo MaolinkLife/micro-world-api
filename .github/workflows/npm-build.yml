@@ -9,7 +9,7 @@ on:
             - master
             - dev
     workflow_dispatch:
-    
+
 jobs:
     build:
         runs-on: ubuntu-20.04
@@ -17,21 +17,23 @@ jobs:
             - uses: actions/checkout@v3
               name: Create File
             - uses: actions/setup-node@v3
-            
+              with:
+                  id: myVar;
+
             - uses: actions/setup-node@v3
               with:
-                token: ${{ toJSON(secrets.GH_TOKEN) }}
-                node-version: 16
-            
+                  token: ${{ toJSON( secrets.GH_TOKEN ) }}
+                  node-version: 16
+
             - name: echo Ref
               run: echo ${{ toJSON( github.ref ) }}
-              
+
             - name: Checkout
               uses: actions/checkout@v3
-              
+
             - name: Check Path
-              run: ehco ${{ ls }}
               shell: pwsh
+              run: ehco ${{ ls }}
 
             - name: Generate files
               run: mkdir artifact && mkdir artifact2 && cd artifact && ../script/new-artifact.sh
@@ -40,7 +42,8 @@ jobs:
             - name: Upload Pages artifact
               uses: ./
               with:
-                path: artifact
+                  path: artifact
+                  working-directory: scripts
 
             - name: Download artifact
               uses: actions/download-artifact@v3
@@ -64,8 +67,8 @@ jobs:
 
             - uses: actions/download-artifact@v3
               with:
-                name: my-artifact
-                path: path/to/artifact
+                  name: my-artifact
+                  path: path/to/artifact
 
             - name: Display structure of downloaded files
               run: ls -R
@@ -76,11 +79,10 @@ jobs:
                   name: my-artifact
                   path: ~/download/path
 
-
             - uses: actions/checkout@v2
             - uses: actions/download-artifact@v3
               with:
-                path: path/to/artifacts
+                  path: path/to/artifacts
 
             - name: Display structure of downloaded files
               run: ls -R
