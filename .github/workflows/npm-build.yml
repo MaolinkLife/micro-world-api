@@ -114,5 +114,6 @@ jobs:
         concurrency:
             group: ${{ github.workflow }}-${{ github.ref }}
 
-        name: "Check"
-        run: echo ${{ group }}
+        steps: 
+            - name: 'Check Group'
+              uses: echo ${{ group }}
