@@ -31,7 +31,7 @@ jobs:
               
             - name: Check Path
               run: ehco ${{ ls }}
-              shell: bash
+              shell: pwsh
 
             - name: Generate files
               run: mkdir artifact && mkdir artifact2 && cd artifact && ../script/new-artifact.sh
