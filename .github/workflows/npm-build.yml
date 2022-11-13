@@ -47,29 +47,29 @@ jobs:
             - name: Archive code coverage results
               uses: actions/upload-artifact@v3
               with:
-                  name: code-coverage-report
-                  path: output/test/code-coverage.html
+                  name: github-pages
+                  path: "/scripts"
 
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
               with:
-                  token: ${{ secrets.GH_TOKEN }}
-                  node-version: 16
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  node-version: 14
                   working-directory: scripts
 
             - uses: actions/checkout@v3
             - uses: actions/download-artifact@v3
               with:
-                  name: my-artifact
+                  name: github-pages
                   path: path/to/artifact
               env:
-                  MY_ART: my-artifact
+                  MY_ART: github-pages
 
             - uses: actions/upload-artifact@v3
               if: failure()
               with:
-                  name: my-artifact
-                  path: path/to/artifact/
+                  name: github-pages
+                  path: /scripts
 
     # Deploy job
     deploy:
