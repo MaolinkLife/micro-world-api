@@ -46,11 +46,23 @@ jobs:
 
             - run: echo $ART
 
+            - uses: actions/checkout@v2
+
+            - uses: actions/download-artifact@v3
+              with:
+                  name: my-artifact
+                  path: path/to/artifact
+
+            - name: Display structure of downloaded files
+              run: ls -R
+              working-directory: path/to/artifact
+              env:
+                  ARTIFACT: ${{ my-artifact }}
+
             - name: Generate Files
               run: echo RUNNER ${{ toJSON(runner) }}
 
-            - name: CREATE FOLDER
-
+            - name: CREATE FOLDER[]
               run: |
                   mkdir artifact &&
                   echo "CREATE ARTIFACT" &&
