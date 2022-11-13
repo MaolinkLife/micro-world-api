@@ -114,6 +114,10 @@ jobs:
         concurrency:
             group: ${{ github.workflow }}-${{ github.ref }}
 
-        steps: 
-            - name: 'Check Group'
+    postbuild:
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: "Check Group"
               uses: echo ${{ group }}
