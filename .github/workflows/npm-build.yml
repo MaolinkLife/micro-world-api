@@ -154,18 +154,6 @@ jobs:
         concurrency:
             group: ${{ github.workflow }}-${{ github.ref }}
 
-    postbuild:
-        needs: build
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: "Set Terminal"
-              run: ls
-
-            - name: "Console"
-              run: echo '${{ toJSON( github.GITHUB_WROKSPACE ) }}'
-                  echo '${{ toJSON( steps.deployment.outputs.page_url ) }}'
-
     install:
         needs: postbuild
         runs-on: ubuntu-latest
