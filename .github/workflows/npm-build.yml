@@ -54,14 +54,16 @@ jobs:
             - name: echo Ref
               run: echo ${{ github.ref }}
               with:
-                  path: ${{ github.ref }}
+                  env: PATH = ${{ github.ref }}
 
             - name: Checkout
               uses: actions/checkout@v3
+              run: echo ${{ toJSON(runner) }}
 
             - name: Generate files
-              run:
-                  mkdir artifact && mkdir artifact2 && cd artifact && ../script/new-artifact.sh
+              run: mkdir artifact && mkdir artifact2
+
+                  cd artifact && ../script/new-artifact.sh
                   echo ls
               shell: bash
 
@@ -89,7 +91,7 @@ jobs:
               run: if [ $(find artifact2 -type l | wc -l) != 0 ]; then echo "Symlinks found"; exit 1; fi
               shell: bash
 
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - uses: actions/download-artifact@v3
               with:
@@ -105,7 +107,7 @@ jobs:
                   name: my-artifact
                   path: ~/download/path
 
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - uses: actions/download-artifact@v3
               with:
                   path: path/to/artifacts
