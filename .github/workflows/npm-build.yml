@@ -11,21 +11,17 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    permissions: 
-      contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-    steps:
-      - uses: actions/checkout@v3
-        name: npm install and build
+    steps: 
+    - uses: actions/upload-pages-artifact@v1.0.4
 
-      # <Not provided for brevity>
-      # At a minimum this job should upload artifacts using actions/upload-pages-artifact
+        # <Not provided for brevity>
+        # At a minimum this job should upload artifacts using actions/upload-pages-artifact
 
   # Deploy job
   deploy:
     # Add a dependency to the build job
     needs: build
+
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
       pages: write      # to deploy to Pages
@@ -42,9 +38,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          
       - name: install global dependencies
         run: npm ci && npm install -g express
       - name: start server
