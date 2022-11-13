@@ -19,7 +19,7 @@ jobs:
             - uses: actions/setup-node@v3
             
             
-            - name: echo Ref ${{ toJSON(  ) }}
+            - name: echo Ref
               run: echo ${{ toJSON( github.ref ) }}
               
 #             - name: Upload Artifact
@@ -27,6 +27,11 @@ jobs:
             
             - name: Checkout
               uses: actions/checkout@v3
+              with:
+                env: CHECK
+
+            - name: echo Ref
+              run: echo ${{ toJSON( CHECK ) }}
 
             - name: Generate files
               run: mkdir artifact && mkdir artifact2 && cd artifact && ../script/new-artifact.sh
