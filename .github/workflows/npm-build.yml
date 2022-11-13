@@ -51,7 +51,7 @@ jobs:
                   name: github-pages
                   path: path/to/artifact/
 
-            - uses: actions/upload-pages-artifact@v3
+            - uses: actions/upload-pages-artifact@v1.0.4
               if: failure()
               with:
                   name: github-pages
