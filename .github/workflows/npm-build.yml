@@ -9,7 +9,7 @@ on:
             - master
             - dev
     workflow_dispatch:
-        cancel-in-progress: true
+    
 
 jobs:
     prebuild:
@@ -20,6 +20,7 @@ jobs:
               uses: actions/checkout@v3
               with:
                   path: ${{ github.GITHUB_WORKSPACE }}
+                  cancel-in-progress: true
 
     dump_contexts_to_log:
         runs-on: ubuntu-latest
