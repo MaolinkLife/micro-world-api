@@ -9,7 +9,7 @@ on:
             - master
             - dev
     workflow_dispatch:
-
+    
 jobs:
     build:
         runs-on: ubuntu-20.04
@@ -17,6 +17,8 @@ jobs:
             - uses: actions/checkout@v3
               name: Create File
             - uses: actions/setup-node@v3
+
+            - run: echo ${{ toJSON( PATH ) }} 
             
             
             - name: echo Ref
