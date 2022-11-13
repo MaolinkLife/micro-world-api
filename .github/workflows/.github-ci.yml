@@ -20,3 +20,23 @@ jobs:
           run: echo '${{ toJSON(strategy) }}'
         - name: Dump matrix context
           run: echo '${{ toJSON(matrix) }}'
+          
+          
+        - name: Console to Upload Artifact
+          run: | 
+            mkdir testing
+            echo "This is a file to upload" > testing/file.txt
+            echo "artifactPath=testing/file.txt" >> $GITHUB_ENV
+
+        - run: mkdir -p path/to/artifact
+
+        - run: echo hello > path/to/artifact/world.txt
+
+        - uses: actions/upload-artifact@v3
+          with:
+            name: my-artifact
+            path: path/to/artifact/world.txt
+
+        - uses: actions/checkout@v3
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
