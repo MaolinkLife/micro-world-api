@@ -16,7 +16,7 @@ jobs:
         # Test first action
         steps:
             - name: Create Files
-            - uses: actions/checkout@v3
+              uses: actions/checkout@v3
               with:
                   path: ${{ github.GITHUB_WORKSPACE }}
 
