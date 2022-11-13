@@ -108,7 +108,7 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               run: actions/deploy-pages@v1
-              with:
+              env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             - run: |
                   npm ci
