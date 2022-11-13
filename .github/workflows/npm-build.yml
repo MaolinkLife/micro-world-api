@@ -1,67 +1,103 @@
 name: GitHub Pages Deploy
-
 on:
-  push:
-    branches:
-    - master
-    - release/*
-  workflow_dispatch: 
+    push:
+        branches:
+            - master
+            - dev
+            - release/*
+    pull_request:
+        branches:
+            - master
+            - dev
+    workflow_dispatch:
 
 jobs:
-  # Build job
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install
-      - run: echo "Install Package ${{ toJSON(github.ref) }}"
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 14
 
-    
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-  # Deploy job
-  deploy:
-    # Add a dependency to the build job
-    needs: build
+            - run: npm install
+            - run: npm build
 
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+            - name: Save public folder
+              uses: actions/upload-artifact@v3
+              with:
+                  name: github-pages
+                  path: path/to/artifact/
 
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    build:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-    # Specify runner + deployment step
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
-      - name: install global dependencies
-        run: npm ci && npm install -g express
-      - name: start server
-        run: node server.js
+            - uses: actions/setup-node@v3
+            - name: npm install, build, and test
+              run:
+                  npm install
+                  #   npm start
+            - name: Archive production artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  shell: bash
+                  name: github-pages
+                  path: |
+                      dist
+                      !dist/**/*.md
+            - name: Archive code coverage results
+              uses: actions/upload-artifact@v3
+              with:
+                  name: github-pages
+                  path: path/to/artifact/
 
+            - uses: actions/upload-artifact@v3
+              if: failure()
+              with:
+                  name: github-pages
+                  path: path/to/artifact/
 
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          
-  postbuild:
-      needs: deploy
-      runs-on: ubuntu-latest
-      steps:
-      - name: postbuild
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-        
-      - name: finalize   
-        run: npm install && npm run start
+            - uses: actions/checkout@v3
+
+              with:
+                  token: ${{ secrets.GH_TOKEN }}
+                  node-version: 16
+                  working-directory: scripts
+
+            - uses: actions/checkout@v3
+            - uses: actions/download-artifact@v3
+              with:
+                  name: github-pages
+                  path: path/to/artifact
+              env:
+                  MY_ART: github-pages
+                  TOKEN: ${{ secrets.GH_TOKEN }}
+
+    # Deploy job
+    deploy:
+        # Add a dependency to the build job
+        needs: build
+
+        # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+        permissions:
+            pages: write # to deploy to Pages
+            id-token: write # to verify the deployment originates from an appropriate source
+
+        # Deploy to the github-pages environment
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+
+        # Specify runner + deployment step
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v1
+              with: ${{ github.GITHUB_TOKEN }}
