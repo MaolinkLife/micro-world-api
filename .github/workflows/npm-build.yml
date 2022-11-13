@@ -11,20 +11,18 @@ on:
     workflow_dispatch:
 
 jobs:
-    job1:
+    prebuild:
         runs-on: ubuntu-latest
         # Test first action
-        name: My first action
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            FIRST_NAME: Mona
-            LAST_NAME: Octocat
+        steps:
+            - name: Create Files
+            - uses: actions/checkout@v3
+              with:
+                  path: ${{ github.GITHUB_WORKSPACE }}
 
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-              name: Create File
             - uses: actions/setup-node@v3
               with:
                   id: myVar;
