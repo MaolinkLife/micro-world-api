@@ -48,7 +48,7 @@ jobs:
               with:
                   name: setup-node
 
-            - run: echo ${{ toJSON(setup-node) }}
+            - run: echo HELLO ${{ toJSON(setup-node) }}
 
             - uses: actions/setup-node@v3
               with:
