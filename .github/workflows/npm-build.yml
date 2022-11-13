@@ -26,16 +26,8 @@ jobs:
             - name: echo Ref
               run: echo ${{ toJSON( github.ref ) }}
               
-#             - name: Upload Artifact
-#               run: actions/upload-pages-artifact@v1.0.4
-            
             - name: Checkout
               uses: actions/checkout@v3
-              with:
-                env: CHECK
-
-            - name: echo Ref
-              run: echo CHECK VAR ${{ toJSON( CHECK ) }}
 
             - name: Generate files
               run: mkdir artifact && mkdir artifact2 && cd artifact && ../script/new-artifact.sh
