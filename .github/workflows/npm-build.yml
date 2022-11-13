@@ -46,18 +46,22 @@ jobs:
 
             - run: echo $ART
 
-            - run: echo RUNNER ${{ toJSON(runner) }}
-
             - name: Generate Files
+              run: echo RUNNER ${{ toJSON(runner) }}
+
+            - name: CREATE FOLDER
+
               run: |
                   mkdir artifact &&
                   echo "CREATE ARTIFACT" &&
                   echo ls &&
-                  mkdir artifact2 &&
+              shell: bash
+
+            - name: Complete
+              run: mkdir artifact2 &&
                   cd artifact &&
                   cd ../script/new-artifact.sh
                   echo ls
-              shell: bash
 
             - name: Upload Pages Artifact
               uses: ./
