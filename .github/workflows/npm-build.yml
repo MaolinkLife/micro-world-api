@@ -13,6 +13,7 @@ on:
     workflow_dispatch:
 
 jobs:
+    # Test
     test:
         runs-on: ubuntu-latest
         steps:
@@ -23,8 +24,12 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v3
 
-            - run: npm install
-            - run: npm build
+            - run: |
+                  npm install
+                  npm build
+
+            - name: Log
+              run: echo ${{toJSON(github)}}
 
             - name: Save public folder
               uses: actions/upload-artifact@v3
@@ -32,6 +37,7 @@ jobs:
                   name: github-pages
                   path: path/to/artifact/
 
+    # Build Artifact
     build:
         needs: test
         runs-on: ubuntu-latest
@@ -43,7 +49,7 @@ jobs:
             - name: npm install, build, and test
               run:
                   npm install
-                  #   npm start
+                  # npm start
             - name: Archive production artifacts
               uses: actions/upload-artifact@v3
               with:
@@ -51,7 +57,8 @@ jobs:
                   name: github-pages
                   path: |
                       dist
-                      !dist/**/*.md
+                      !dist/**/*.md 
+                      path/to/artifact/
             - name: Archive code coverage results
               uses: actions/upload-artifact@v3
               with:
@@ -100,9 +107,9 @@ jobs:
         steps:
             - name: Deploy to GitHub Pages
               id: deployment
-            - uses: actions/deploy-pages@v1
+              run: actions/deploy-pages@v1
               with:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    post-deploy:
-        runs-on: ubuntu-latest
-        needs: deploy
+            - run: |
+                  npm ci
+                  npm start
