@@ -122,5 +122,3 @@ jobs:
         steps:
             - name: "Set Terminal"
               run: ls
-              with:
-                  env: PATH = ls
