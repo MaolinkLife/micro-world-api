@@ -20,7 +20,7 @@ jobs:
         name: npm install and build
         
       - name: install global dependencies
-        run: npm install -g express-generator
+        run: npm ci && npm install -g express
       - name: start server
         run: node server.js
 
