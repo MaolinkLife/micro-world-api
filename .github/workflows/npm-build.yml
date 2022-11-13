@@ -20,6 +20,8 @@ jobs:
                   node-version: 14
             - run: npm install
             - run: npm build
+
+              uses: ${{ secrets.GH_TOKEN }}
               env:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
@@ -32,6 +34,7 @@ jobs:
             - run: echo ${{ toJSON(github) }}
 
     build_and_test:
+        needs: test
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
