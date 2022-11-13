@@ -18,6 +18,8 @@ jobs:
               name: Create File
             - uses: actions/setup-node@v3
             
-            - run: echo ${{ toJSON(github.ref ) }}
+            - run: echo ${{ toJSON( github.ref ) }}
             
-            - run: echo ${{ toJSON(actions/checkout@v3) }}
+            - name: Upload Artifact
+              run: actions/upload-pages-artifact@v1.0.4
+            
