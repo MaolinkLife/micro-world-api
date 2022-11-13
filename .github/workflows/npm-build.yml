@@ -20,6 +20,10 @@ jobs:
 
             - run: echo ${{ toJSON( PATH ) }} 
             
+            - uses: actions/setup-node@v3
+              with:
+                token: ${{ secrets.GH_DOTCOM_TOKEN }}
+                node-version: 16
             
             - name: echo Ref
               run: echo ${{ toJSON( github.ref ) }}
@@ -33,7 +37,7 @@ jobs:
                 env: CHECK
 
             - name: echo Ref
-              run: echo ${{ toJSON( CHECK ) }}
+              run: echo CHECK VAR ${{ toJSON( CHECK ) }}
 
             - name: Generate files
               run: mkdir artifact && mkdir artifact2 && cd artifact && ../script/new-artifact.sh
