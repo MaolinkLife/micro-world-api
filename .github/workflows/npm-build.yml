@@ -101,5 +101,8 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v1
-              env:
+              with:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    post-deploy:
+        runs-on: ubuntu-latest
+        needs: deploy
