@@ -29,11 +29,6 @@ jobs:
                 name: github-pages
                 path: artifact
 
-            - name: 'Console'
-              run: 
-                echo '${{ toJSON(NODE_AUTH_TOKEN) }}'
-                echo  '${{ toJSON(steps.deployment.outputs.page_url) }}'
-
         # <Not provided for brevity>
         # At a minimum this job should upload artifacts using actions/upload-pages-artifact
 
@@ -59,6 +54,11 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                 name: github-pages
+
+            - name: 'Console'
+              run: 
+                echo '${{ toJSON( github.GITHUB_WROKSPACE ) }}'
+                echo '${{ toJSON( steps.deployment.outputs.page_url ) }}'
             
             - name: Deploy to GitHub Pages
               id: deployment
