@@ -57,7 +57,7 @@ jobs:
 
             - name: 'Console'
               run: 
-                echo '${{ toJSON(GITHUB_WORKSPACE) }}'
+                echo '${{ toJSON(NODE_AUTH_TOKEN) }}'
                 echo  '${{ toJSON(steps.deployment.outputs.page_url) }}'
             
             - name: Deploy to GitHub Pages
