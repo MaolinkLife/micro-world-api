@@ -34,9 +34,8 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v3
             - name: npm install, build, and test
-              run: |
-                  npm install
-                  npm start
+              run: npm install
+                #   npm start
             - name: Archive production artifacts
               uses: actions/upload-artifact@v3
               with:
