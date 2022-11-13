@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - "master"
+      - master
     
 jobs:
     console:
@@ -10,17 +10,21 @@ jobs:
         - name: Dump GitHub context
           id: github_context_step
           run: echo '${{ toJSON(github) }}'
+          
         - name: Dump job context
           run: echo '${{ toJSON(job) }}'
+          
         - name: Dump steps context
           run: echo '${{ toJSON(steps) }}'
+          
         - name: Dump runner context
           run: echo '${{ toJSON(runner) }}'
+          
         - name: Dump strategy context
           run: echo '${{ toJSON(strategy) }}'
+          
         - name: Dump matrix context
           run: echo '${{ toJSON(matrix) }}'
-          
           
         - name: Console to Upload Artifact
           run: | 
@@ -33,10 +37,10 @@ jobs:
         - run: echo hello > path/to/artifact/world.txt
 
         - uses: actions/upload-artifact@v3
-          with:
+          with: 
             name: my-artifact
             path: path/to/artifact/world.txt
-
+          
         - uses: actions/checkout@v3
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
