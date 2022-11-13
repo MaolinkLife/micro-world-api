@@ -42,16 +42,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
       - name: install global dependencies
         run: npm ci && npm install -g express
       - name: start server
-        run: node server.js
+#         run: node server.js
 
-
-        with:
+        with: 
           github_token: ${{ secrets.GITHUB_TOKEN }}
           
   postbuild:
