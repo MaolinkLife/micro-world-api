@@ -13,17 +13,7 @@ on:
         cancel-in-progress: true
 
 jobs:
-    pre-build:
-        runs-on: ubuntu-latest
-        # Test first action
-        steps:
-            - name: Create Files
-              uses: actions/checkout@v3
-              with:
-                  path: ${{ github.GITHUB_WORKSPACE }}
-
     dump_contexts_to_log:
-        needs: pre-build
         runs-on: ubuntu-latest
         steps:
             - name: Dump GitHub context
@@ -41,24 +31,22 @@ jobs:
               run: echo '${{ toJSON(matrix) }}'
 
     build:
-        needs: pre-build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-              name: Select Branch
-
+              name: Setup Node
             - uses: actions/setup-node@v3
               with:
                   token: ${{ secrets.GH_TOKEN }}
                   node-version: 16
 
-            - run: echo ${{ toJSON(runner) }}
+            - run: echo RUNNER ${{ toJSON(runner) }}
 
             - name: Generate files
               run: |
                   mkdir artifact && mkdir artifact2
                   cd artifact &&
-                  cd ../script/new-artifact.sh
+              if: cd ../script/new-artifact.sh
                   echo ls
               shell: bash
 
