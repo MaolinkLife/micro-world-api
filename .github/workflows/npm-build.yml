@@ -73,4 +73,4 @@ jobs:
                   MY_ART: my-artifact
 
             - name: test
-              run: echo $MY_ART ${{ $MY_ART }}
+              run: echo  ${{ toJSON(env.MY_ART) }}
