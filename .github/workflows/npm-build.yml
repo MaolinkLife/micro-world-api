@@ -9,6 +9,7 @@ on:
         branches:
             - master
             - dev
+            - release/*
     workflow_dispatch:
 
 jobs:
@@ -47,7 +48,7 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                   shell: bash
-                  name: dist-without-markdown
+                  name: github-pages
                   path: |
                       dist
                       !dist/**/*.md
@@ -66,7 +67,7 @@ jobs:
             - uses: actions/checkout@v3
 
               with:
-                  token: ${{ secrets.GH_TOKEN }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
                   node-version: 16
                   working-directory: scripts
 
@@ -77,7 +78,7 @@ jobs:
                   path: path/to/artifact
               env:
                   MY_ART: github-pages
-                  TOKEN: ${{ secrets.GH_TOKEN }}
+                  TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # Deploy job
     deploy:
@@ -100,3 +101,5 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
