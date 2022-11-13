@@ -50,8 +50,8 @@ jobs:
         # Specify runner + deployment step
         runs-on: ubuntu-latest
         steps:
-            - run:  echo ${{ toJSON(github-pages) }}
-                    echo ${{ toJSON(steps.deployment.outputs.page_url) }}
+            - run:  echo "${{ toJSON(github-pages) }}"
+                    echo "${{ toJSON(steps.deployment.outputs.page_url) }}"
             
             - name: Download artifact
               uses: actions/download-artifact@v3
