@@ -44,31 +44,21 @@ jobs:
         needs: pre-build
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/setup-node@v3
-              with:
-                  name: setup-node
-
-            - run: echo HELLO ${{ toJSON(setup-node) }}
+            - uses: actions/checkout@v3
+              name: Select Branch
 
             - uses: actions/setup-node@v3
               with:
                   token: ${{ secrets.GH_TOKEN }}
                   node-version: 16
 
-            - name: echo Ref
-              run: echo ${{ github.ref }}
-              env:
-                  PATH: ${{ github.ref }}
-
-            - name: Checkout
-              uses: actions/checkout@v3
-
             - run: echo ${{ toJSON(runner) }}
 
             - name: Generate files
-              run: mkdir artifact && mkdir artifact2
-
-                  cd artifact && ../script/new-artifact.sh
+              run: |
+                  mkdir artifact && mkdir artifact2
+                  cd artifact &&
+                  cd ../script/new-artifact.sh
                   echo ls
               shell: bash
 
