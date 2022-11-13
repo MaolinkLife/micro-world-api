@@ -52,3 +52,20 @@ jobs:
             - name: Check for absence of symlinks
               run: if [ $(find artifact2 -type l | wc -l) != 0 ]; then echo "Symlinks found"; exit 1; fi
               shell: bash
+
+            - uses: actions/checkout@v2
+
+            - uses: actions/download-artifact@v3
+              with:
+                name: my-artifact
+                path: path/to/artifact
+
+            - name: Display structure of downloaded files
+              run: ls -R
+              working-directory: path/to/artifact
+
+            - uses: actions/download-artifact@v3
+              with:
+                  name: my-artifact
+                  path: ~/download/path
+
