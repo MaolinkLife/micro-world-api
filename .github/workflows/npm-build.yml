@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
-      - run: echo "Install Package"
+      - run: echo "Install Package ${{ toJSON(github.ref) }}"
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
