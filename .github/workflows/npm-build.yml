@@ -121,4 +121,6 @@ jobs:
 
         steps:
             - name: "Set Terminal"
-              run: echo ${{ ls }}
+              run: ls
+              with:
+                  env: PATH = ls
