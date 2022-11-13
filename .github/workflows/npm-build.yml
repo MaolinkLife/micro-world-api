@@ -120,4 +120,4 @@ jobs:
 
         steps:
             - name: "Check Group"
-              uses: echo ${{ group }}
+              run: echo ${{ group }}
