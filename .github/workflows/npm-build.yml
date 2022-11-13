@@ -55,8 +55,10 @@ jobs:
               with:
                 name: github-pages
 
-            - run:  echo "${{ toJSON(GITHUB_WORKSPACE) }}"
-                    echo "${{ toJSON(steps.deployment.outputs.page_url) }}"
+            - name: 'Console'
+              run: 
+                echo '${{ toJSON(GITHUB_WORKSPACE) }}'
+                echo  '${{ toJSON(steps.deployment.outputs.page_url) }}'
             
             - name: Deploy to GitHub Pages
               id: deployment
