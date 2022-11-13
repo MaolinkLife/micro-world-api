@@ -35,26 +35,31 @@ jobs:
         steps:
             - uses: actions/checkout@v3
               name: Setup Node
+
             - uses: actions/setup-node@v3
               with:
                   token: ${{ secrets.GH_TOKEN }}
                   node-version: 16
+                  working-directory: scripts
 
             - run: echo RUNNER ${{ toJSON(runner) }}
 
-            - name: Generate files
+            - name: Generate Files
               run: |
                   mkdir artifact && mkdir artifact2
                   cd artifact &&
                   cd ../script/new-artifact.sh
                   echo ls
               shell: bash
+              env:
+                  ART: ls
 
-            - name: Upload Pages artifact
+            - run: echo $ART
+
+            - name: Upload Pages Artifact
               uses: ./
               with:
                   path: artifact
-                  working-directory: scripts
 
             - name: Download artifact
               uses: actions/download-artifact@v3
