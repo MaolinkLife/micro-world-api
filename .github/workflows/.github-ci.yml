@@ -32,7 +32,7 @@ jobs:
             echo "This is a file to upload" > testing/file.txt
             echo "artifactPath=testing/file.txt" >> $GITHUB_ENV
 
-            run: mkdir -p path/to/artifact
+            path: path/to/artifact
             run: echo hello > path/to/artifact/world.txt
 
             uses: actions/upload-artifact@v3
