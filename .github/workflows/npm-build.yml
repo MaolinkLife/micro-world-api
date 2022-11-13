@@ -25,7 +25,6 @@ jobs:
         path: path/to/artifact/world.txt
 
     - uses: actions/checkout@v3
-    - uses: release-drafter/release-drafter@v5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
