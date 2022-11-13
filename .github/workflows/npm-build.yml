@@ -90,7 +90,10 @@ jobs:
               run: |
                   mkdir artifact &&
                   echo "CREATE ARTIFACT" &&
-                  echo ls &&
+                  echo ls
+
+            - name: Log
+              run: echo ${{ toJSON(runner)}}
               shell: bash
 
             - name: Complete
