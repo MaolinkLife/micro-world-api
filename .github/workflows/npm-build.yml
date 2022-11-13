@@ -23,7 +23,7 @@ jobs:
             - name: Setup Node
               uses: actions/upload-pages-artifact@v1
               with:
-                  path: artifact-name
+                  path: artifact
 
             - name: Checkout
               uses: actions/checkout@v3
@@ -32,7 +32,7 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                   name: github-pages
-                  path: artifact-name
+                  path: artifact
 
         # <Not provided for brevity>
         # At a minimum this job should upload artifacts using actions/upload-pages-artifact
