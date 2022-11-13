@@ -28,10 +28,11 @@ jobs:
               with:
                 name: github-pages
                 path: artifact
-
-            - env:
+            
+            - name: Get Message
+              env:
                 MESSAGE: ${{ github.event.client_payload.message }}
-                run: echo $MESSAGE
+              run: echo $MESSAGE
 
         # <Not provided for brevity>
         # At a minimum this job should upload artifacts using actions/upload-pages-artifact
