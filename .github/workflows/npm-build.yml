@@ -58,7 +58,8 @@ jobs:
 
             - name: Checkout
               uses: actions/checkout@v3
-              run: echo ${{ toJSON(runner) }}
+
+            - run: echo ${{ toJSON(runner) }}
 
             - name: Generate files
               run: mkdir artifact && mkdir artifact2
