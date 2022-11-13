@@ -72,4 +72,5 @@ jobs:
               env:
                   MY_ART: my-artifact
 
-            - name: echo $MY_ART ${{ $MY_ART }}
+            - name: test
+              run: echo $MY_ART ${{ $MY_ART }}
