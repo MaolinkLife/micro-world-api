@@ -12,16 +12,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install
-      - run: echo "Install Package ${{ toJSON(github.ref) }}"
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v3
 
-    
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Setup Node
+      uses: actions/upload-pages-artifact@v1
+
+    # <Not provided for brevity>
+    # At a minimum this job should upload artifacts using actions/upload-pages-artifact
 
   # Deploy job
   deploy:
@@ -44,22 +46,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-      - name: install global dependencies
-        run: npm ci && npm install -g express
-      - name: start server
-        run: node server.js
 
-#       with: 
-#         github_token: ${{ secrets.GITHUB_TOKEN }}
-          
-  postbuild:
-      needs: deploy
-      runs-on: ubuntu-latest
-      steps:
-      - name: postbuild
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-        
-      - name: finalize   
-        run: npm install && npm run start
