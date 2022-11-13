@@ -47,7 +47,7 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                   shell: bash
-                  name: github-pages
+                  name: dist-without-markdown
                   path: |
                       dist
                       !dist/**/*.md
@@ -100,4 +100,3 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v1
-              with: ${{ github.GITHUB_TOKEN }}
