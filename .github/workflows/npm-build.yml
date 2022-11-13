@@ -18,4 +18,4 @@ jobs:
               name: Create File
             - uses: actions/setup-node@v3
             
-            - run: echo ${{ github.GITHUB_WORKSPACE }}
+            - run: echo ${{ toJSON(github.GITHUB_WORKSPACE) }}
