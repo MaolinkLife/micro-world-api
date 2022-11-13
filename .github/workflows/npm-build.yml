@@ -9,6 +9,7 @@ on:
             - master
             - dev
     workflow_dispatch:
+        cancel-in-progress: true
 
 jobs:
     prebuild:
@@ -118,6 +119,4 @@ jobs:
         needs: build
         runs-on: ubuntu-latest
 
-        steps:
-            - name: "Check Group"
-              run: echo ${{ group }}
+        name: "Set Terminal"
