@@ -41,6 +41,10 @@ jobs:
                   token: ${{ secrets.GH_TOKEN }}
                   node-version: 16
                   working-directory: scripts
+              env:
+                  ART: ls
+
+            - run: echo $ART
 
             - run: echo RUNNER ${{ toJSON(runner) }}
 
@@ -51,10 +55,6 @@ jobs:
                   cd ../script/new-artifact.sh
                   echo ls
               shell: bash
-              env:
-                  ART: ls
-
-            - run: echo $ART
 
             - name: Upload Pages Artifact
               uses: ./
