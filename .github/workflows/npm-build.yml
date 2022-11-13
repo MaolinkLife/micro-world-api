@@ -15,16 +15,16 @@ jobs:
     test:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@latest
               with:
-                  node-version: "12"
+                  node-version: 14
             - run: npm install
-            - run: npm run build
+            - run: npm build
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Save public folder
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@latest
               with:
                   name: public
                   path: public
@@ -32,18 +32,17 @@ jobs:
             - run: echo ${{ toJSON(github) }}
 
     build_and_test:
-        needs: test
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@latest
             - name: npm install, build, and test
               run: |
                   npm install
                   npm npm test
                   npm start
             - name: Archive production artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@latest
               with:
                   shell: bash
                   name: dist-without-markdown
