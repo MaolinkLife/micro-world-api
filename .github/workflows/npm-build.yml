@@ -42,7 +42,7 @@ jobs:
                   node-version: 16
                   working-directory: scripts
               env:
-                  ART: ls
+                  ART: echo ls
 
             - run: echo $ART
 
