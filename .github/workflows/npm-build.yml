@@ -1,83 +1,57 @@
-name: GitHub Pages Deploy
-
 on:
     push:
         branches:
             - master
+            - dev
             - release/*
-    workflow_dispatch:
     pull_request:
+        branches:
+            - master
+            - dev
+    workflow_dispatch:
 
 jobs:
-    # Build job
     build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         steps:
             - uses: actions/checkout@v3
+              name: Create File
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache: "npm"
+                  cache-dependency-path: subdir/package-lock.json
 
-#             - name: Setup Node
-#               uses: actions/setup-node@v3
-#               with:
-#                   node-version: "14"
+              run: echo "${{ github.GITHUB_WORKSPACE }}"
+
+            - run: npm ci
+            - run: npm test
 
             - name: Checkout
               uses: actions/checkout@v3
-            
-            - name: Create File
-              uses: actions/setup-node@v3
 
             - name: Save public folder
               uses: actions/upload-artifact@v2
               with:
-                name: github-pages
-                path: artifact
-            
-            - name: Get Message
-              env:
-                MESSAGE: ${{ github.event.client_payload.message }}
-              run: echo $MESSAGE
+                  name: github-pages
+                  path: artifact
 
-        # <Not provided for brevity>
-        # At a minimum this job should upload artifacts using actions/upload-pages-artifact
-
-    # Deploy job
-    deploy:
-        # Add a dependency to the build job
-        needs: build
-
-        # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-        permissions:
-            pages: write # to deploy to Pages
-            id-token: write # to verify the deployment originates from an appropriate source
-
-        # Deploy to the github-pages environment
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
-
-        # Specify runner + deployment step
-        runs-on: ubuntu-latest
-        steps:
             - name: Download artifact
               uses: actions/download-artifact@v3
               with:
-                name: github-pages
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                
+                  name: github-pages
 
-            - name: Setup Node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: "14"
-
-            - name: 'Console'
-              run: 
-                echo '${{ toJSON( github.GITHUB_WROKSPACE ) }}'
-                echo '${{ toJSON( steps.deployment.outputs.page_url ) }}'
-            
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v1
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# build:
+#     runs-on: ubuntu-latest
+#     steps:
+#         - uses: actions/checkout@v3
+#         - uses: actions/setup-node@v3
+#           with:
+#               node-version: "14"
+#         - run: npm install
+#         - run: echo "Install Package ${{ toJSON(github.ref) }}"
+#     env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
