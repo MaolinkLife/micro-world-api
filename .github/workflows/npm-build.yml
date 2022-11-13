@@ -16,11 +16,9 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
+      - uses: actions/checkout@v3
       - name: npm install and build
-        uses: actions/checkout@v3
-       
 
-   
     # <Not provided for brevity>
     # At a minimum this job should upload artifacts using actions/upload-pages-artifact
 
@@ -38,13 +36,23 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    # Specify runner + deployment ste
+    # Specify runner + deployment step
     runs-on: ubuntu-latest
     steps:
-      - name: deploy to gitHub pages
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+  postbuild:
+      needs: deploy
+      runs-on: ubuntu-latest
+      steps:
       - name: postbuild
-        run: npm run start
+        uses: setup-node@v3
+        with:
+          node-version: '14'
+        
+      - name: finalize   
+        run: npm install && npm build && npm run start
