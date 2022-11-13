@@ -47,10 +47,10 @@ jobs:
       - name: install global dependencies
         run: npm ci && npm install -g express
       - name: start server
-#         run: node server.js
+        run: node server.js
 
-        with: 
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+#       with: 
+#         github_token: ${{ secrets.GITHUB_TOKEN }}
           
   postbuild:
       needs: deploy
