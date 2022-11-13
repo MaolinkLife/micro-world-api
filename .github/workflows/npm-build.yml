@@ -18,9 +18,9 @@ jobs:
     steps:
       - name: npm install and build
         uses: actions/checkout@v3
-      - run: npm install
-      - run: npm build
+       
 
+   
     # <Not provided for brevity>
     # At a minimum this job should upload artifacts using actions/upload-pages-artifact
 
@@ -44,8 +44,7 @@ jobs:
       - name: deploy to gitHub pages
         id: deployment
         uses: actions/deploy-pages@v1
-      - name: postbuild
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm install
-      - run: npm run start
+      - name: postbuild
+        run: npm run start
