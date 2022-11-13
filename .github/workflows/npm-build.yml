@@ -13,7 +13,7 @@ on:
         cancel-in-progress: true
 
 jobs:
-    prebuild:
+    pre-build:
         runs-on: ubuntu-latest
         # Test first action
         steps:
@@ -23,7 +23,7 @@ jobs:
                   path: ${{ github.GITHUB_WORKSPACE }}
 
     dump_contexts_to_log:
-        needs: prebuild
+        needs: pre-build
         runs-on: ubuntu-latest
         steps:
             - name: Dump GitHub context
@@ -41,12 +41,14 @@ jobs:
               run: echo '${{ toJSON(matrix) }}'
 
     build:
-        needs: prebuild
+        needs: pre-build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/setup-node@v3
               with:
-                  id: myVar;
+                  name: setup-node
+
+            - run: echo ${{ toJSON(setup-node) }}
 
             - uses: actions/setup-node@v3
               with:
