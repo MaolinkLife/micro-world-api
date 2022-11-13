@@ -21,7 +21,8 @@ jobs:
     # At a minimum this job should upload artifacts using actions/upload-pages-artifact
     
       - name: npm install and build
-        run: npm install && npm build
+        run: npm install && npm run build
+
   # Deploy job
   deploy:
     # Add a dependency to the build job
