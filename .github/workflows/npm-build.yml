@@ -13,6 +13,25 @@ on:
         cancel-in-progress: true
 
 jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: "12"
+            - run: npm install
+            - run: npm run build
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Save public folder
+              uses: actions/upload-artifact@v2
+              with:
+                  name: public
+                  path: public
+
+            - run: echo ${{ toJSON(github) }}
+
     build_and_test:
         runs-on: ubuntu-latest
         steps:
