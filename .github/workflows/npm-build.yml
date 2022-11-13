@@ -53,8 +53,7 @@ jobs:
 
             - name: echo Ref
               run: echo ${{ github.ref }}
-              with:
-                  env: PATH = ${{ github.ref }}
+              env: PATH = ${{ github.ref }}
 
             - name: Checkout
               uses: actions/checkout@v3
