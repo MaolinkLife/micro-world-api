@@ -50,7 +50,10 @@ jobs:
 
             - name: Generate Files
               run: |
-                  mkdir artifact && mkdir artifact2
+                  mkdir artifact &&
+                  echo "CREATE ARTIFACT" &&
+                  echo ls &&
+                  mkdir artifact2 &&
                   cd artifact &&
                   cd ../script/new-artifact.sh
                   echo ls
