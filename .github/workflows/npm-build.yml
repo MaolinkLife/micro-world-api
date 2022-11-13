@@ -15,7 +15,7 @@ jobs:
     test:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/setup-node@latest
+            - uses: actions/setup-node@v3
               with:
                   node-version: 14
             - run: npm install
@@ -24,7 +24,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Save public folder
-              uses: actions/upload-artifact@latest
+              uses: actions/upload-artifact@v3
               with:
                   name: public
                   path: public
@@ -35,14 +35,14 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
-              uses: actions/checkout@latest
+              uses: actions/checkout@v3
             - name: npm install, build, and test
               run: |
                   npm install
                   npm npm test
                   npm start
             - name: Archive production artifacts
-              uses: actions/upload-artifact@latest
+              uses: actions/upload-artifact@v3
               with:
                   shell: bash
                   name: dist-without-markdown
