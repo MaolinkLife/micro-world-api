@@ -10,7 +10,6 @@ on:
             - master
             - dev
     workflow_dispatch:
-        cancel-in-progress: true
 
 jobs:
     test:
@@ -33,6 +32,7 @@ jobs:
             - run: echo ${{ toJSON(github) }}
 
     build_and_test:
+        needs: test
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
