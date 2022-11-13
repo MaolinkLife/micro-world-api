@@ -22,7 +22,7 @@ jobs:
             - run: npm build
 
             - name: Save public folder
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v3.1.1
               with:
                   name: public
                   path: public
@@ -38,7 +38,7 @@ jobs:
                   npm install
                   #   npm start
             - name: Archive production artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v3.1.1
               with:
                   shell: bash
                   name: dist-without-markdown
@@ -46,7 +46,7 @@ jobs:
                       dist
                       !dist/**/*.md
             - name: Archive code coverage results
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v3.1.1
               with:
                   name: github-pages
                   path: path/to/artifact/
