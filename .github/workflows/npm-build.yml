@@ -34,8 +34,9 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v3
             - name: npm install, build, and test
-              run: npm install
-                #   npm start
+              run:
+                  npm install
+                  #   npm start
             - name: Archive production artifacts
               uses: actions/upload-artifact@v3
               with:
@@ -46,6 +47,12 @@ jobs:
                       !dist/**/*.md
             - name: Archive code coverage results
               uses: actions/upload-artifact@v3
+              with:
+                  name: github-pages
+                  path: path/to/artifact/
+
+            - uses: actions/upload-pages-artifact@v3
+              if: failure()
               with:
                   name: github-pages
                   path: path/to/artifact/
@@ -64,12 +71,6 @@ jobs:
                   path: path/to/artifact
               env:
                   MY_ART: github-pages
-
-            - uses: actions/upload-artifact@v3
-              if: failure()
-              with:
-                  name: github-pages
-                  path: path/to/artifact/
 
     # Deploy job
     deploy:
