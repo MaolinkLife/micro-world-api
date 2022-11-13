@@ -36,31 +36,28 @@ jobs:
                   name: code-coverage-report
                   path: output/test/code-coverage.html
 
-    dump_contexts_to_log:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Dump GitHub context
-              id: github_context_step
-              run: echo '${{ toJSON(github) }}'
+            # dump_contexts_to_log:
+            #     runs-on: ubuntu-latest
+            #     steps:
+            #         - name: Dump GitHub context
+            #           id: github_context_step
+            #           run: echo '${{ toJSON(github) }}'
 
-            - name: Dump job context
-              run: echo '${{ toJSON(job) }}'
+            #         - name: Dump job context
+            #           run: echo '${{ toJSON(job) }}'
 
-            - name: Dump steps context
-              run: echo '${{ toJSON(steps) }}'
+            #         - name: Dump steps context
+            #           run: echo '${{ toJSON(steps) }}'
 
-            - name: Dump runner context
-              run: echo '${{ toJSON(runner) }}'
+            #         - name: Dump runner context
+            #           run: echo '${{ toJSON(runner) }}'
 
-            - name: Dump strategy context
-              run: echo '${{ toJSON(strategy) }}'
+            #         - name: Dump strategy context
+            #           run: echo '${{ toJSON(strategy) }}'
 
-            - name: Dump matrix context
-              run: echo '${{ toJSON(matrix) }}'
+            #         - name: Dump matrix context
+            #           run: echo '${{ toJSON(matrix) }}'
 
-    build:
-        runs-on: ubuntu-latest
-        steps:
             - uses: actions/checkout@v3
               name: Setup Node
 
@@ -78,8 +75,7 @@ jobs:
               env:
                   MY_ART: my-artifact
 
-            - name: echo Check MY_ART
-              run: echo ${{ }}
+            - name: echo $MY_ART
 
             # - name: Display structure of downloaded files
             #   run: ls -R
