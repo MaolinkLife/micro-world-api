@@ -32,7 +32,7 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                   name: github-pages
-                  path: artifact
+                  path: artifact-name
 
         # <Not provided for brevity>
         # At a minimum this job should upload artifacts using actions/upload-pages-artifact
