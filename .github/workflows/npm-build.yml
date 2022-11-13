@@ -23,11 +23,11 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
-            - name: Download artifact
-              uses: actions/download-artifact@v3
+            - name: Save public folder
+              uses: actions/upload-artifact@v2
               with:
-                  name: github-pages
-                  path: artifact
+                name: github-pages
+                path: artifact
 
         # <Not provided for brevity>
         # At a minimum this job should upload artifacts using actions/upload-pages-artifact
@@ -50,6 +50,11 @@ jobs:
         # Specify runner + deployment step
         runs-on: ubuntu-latest
         steps:
+            - name: Download artifact
+              uses: actions/download-artifact@v3
+              with:
+                name: github-pages
+
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v1
