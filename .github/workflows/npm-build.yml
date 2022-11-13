@@ -119,4 +119,6 @@ jobs:
         needs: build
         runs-on: ubuntu-latest
 
-        name: "Set Terminal"
+        steps:
+            - name: "Set Terminal"
+              run: echo ${{ ls }}
