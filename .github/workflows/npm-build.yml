@@ -11,11 +11,23 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+
+    - run: mkdir -p path/to/artifact
+
+    - run: echo hello > path/to/artifact/world.txt
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: path/to/artifact/world.txt
+
+    - uses: actions/checkout@v3
+    - uses: release-drafter/release-drafter@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         # <Not provided for brevity>
         # At a minimum this job should upload artifacts using actions/upload-pages-artifact
