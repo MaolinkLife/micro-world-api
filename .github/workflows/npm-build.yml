@@ -1,4 +1,3 @@
-
 name: GitHub Pages Deploy
 on:
     push:
@@ -11,20 +10,20 @@ on:
             - master
             - dev
     workflow_dispatch:
+        cancel-in-progress: true
 
 jobs:
     prebuild:
         runs-on: ubuntu-latest
-   
         # Test first action
         steps:
             - name: Create Files
               uses: actions/checkout@v3
               with:
                   path: ${{ github.GITHUB_WORKSPACE }}
-                  cancel-in-progress: true
 
     dump_contexts_to_log:
+        needs: prebuild
         runs-on: ubuntu-latest
         steps:
             - name: Dump GitHub context
@@ -96,7 +95,6 @@ jobs:
               shell: bash
 
             - uses: actions/checkout@v3
-
             - uses: actions/download-artifact@v3
               with:
                   name: my-artifact
@@ -137,7 +135,17 @@ jobs:
               run: echo '${{ toJSON( github.GITHUB_WROKSPACE ) }}'
                   echo '${{ toJSON( steps.deployment.outputs.page_url ) }}'
 
+    install:
+        needs: postbuild
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clean install dependencies and build
+              run: |
+                  npm ci
+                  npm run build
+
     logger:
+        needs: postbuild
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
