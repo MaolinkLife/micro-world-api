@@ -20,11 +20,6 @@ jobs:
               with:
                   node-version: "14"
 
-            - name: Setup Node
-              uses: actions/upload-pages-artifact@v1
-              with:
-                  path: artifact
-
             - name: Checkout
               uses: actions/checkout@v3
 
