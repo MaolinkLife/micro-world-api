@@ -48,18 +48,21 @@ jobs:
 
             - uses: actions/setup-node@v3
               with:
-                  token: ${{ toJSON( secrets.GH_TOKEN ) }}
+                  token: ${{ secrets.GH_TOKEN }}
                   node-version: 16
 
             - name: echo Ref
-              run: echo ${{ toJSON( github.ref ) }}
+              run: echo ${{ github.ref }}
+              with:
+                  path: ${{ github.ref }}
 
             - name: Checkout
               uses: actions/checkout@v3
 
             - name: Generate files
-              run: mkdir artifact && mkdir artifact2 && cd artifact && ../script/new-artifact.sh
-                   echo ls
+              run:
+                  mkdir artifact && mkdir artifact2 && cd artifact && ../script/new-artifact.sh
+                  echo ls
               shell: bash
 
             - name: Upload Pages artifact
