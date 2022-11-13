@@ -21,7 +21,7 @@ jobs:
             - run: npm install
             - run: npm build
               env:
-                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
             - name: Save public folder
               uses: actions/upload-artifact@v3
