@@ -11,32 +11,23 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    permissions: 
-      contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
-        name: npm install and build
-
-      # <Not provided for brevity>
-      # At a minimum this job should upload artifacts using actions/upload-pages-artifact
-
-      - name: CDK NodeJS
-        # You may pin to the exact commit or the version.
-        # uses: udondan/cdk-nodejs@92a1af5f2e5d08d0593186fa94c2733715f74095 
-        uses: udondan/cdk-nodejs@v0.1.2
+      - uses: actions/setup-node@v3
         with:
-          # AWS access key associated with an IAM user
-          AWS_ACCESS_KEY_ID: ${{ secrets.GITHUB_TOKEN }}
-          # Secret key associated with the access key
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.GITHUB_TOKEN }}
+          node-version: '14'
+      - run: npm install
+      - run: echo "Install Package"
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    
 
   # Deploy job
   deploy:
     # Add a dependency to the build job
     needs: build
+
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
       pages: write      # to deploy to Pages
@@ -51,8 +42,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+      - name: install global dependencies
+        run: npm ci && npm install -g express
+      - name: start server
+        run: node server.js
+
+
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           

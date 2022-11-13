@@ -1,0 +1,13 @@
+on:
+  page_build: 
+    runs-on: ubuntu-latest
+    uses: 
+    - run: echo "page_build"
+    - run: echo "runs-on"
+
+jobs:
+  prebuild: 
+      runs-on: ubuntu-latest
+      steps:
+      - run: echo "prebuild"
+      - run: echo "{{ env.BUILD_TYPE }}"
