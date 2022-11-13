@@ -17,7 +17,7 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
-      - name: npm install and build
+        name: npm install and build
 
     # <Not provided for brevity>
     # At a minimum this job should upload artifacts using actions/upload-pages-artifact
