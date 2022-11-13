@@ -52,6 +52,7 @@ jobs:
 
             - name: echo Ref
               run: echo ${{ toJSON( github.ref ) }}
+                   echo VAR => ${{ toJSON( myVar ) }}
 
             - name: Checkout
               uses: actions/checkout@v3
