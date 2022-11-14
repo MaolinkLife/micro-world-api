@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: 14.x
       - run: npm ci
-      - run: npm start
+      - run: node server.js
 
       - name: Create a temporary artifact downloads folder
         run: |
