@@ -47,6 +47,14 @@ app.use((err, req, res, next) => {
     res.status(status).send({ status, error: msg });
 });
 
+module.exports = {
+    app: [{
+        script: 'api.js'
+    }]
+}
+
+log(module, exports, module.exports)
+
 module.exports = app;
 
 app.listen(PORT, () => {
@@ -56,3 +64,34 @@ app.listen(PORT, () => {
         )} | Environment : ${app.get("env")}`
     );
 });
+
+
+const { execSync } = require('child_process');
+
+function run(func) {
+    console.log(execSync(func).toString())
+}
+
+module.exports = {
+    name: prompt('package name', basename || package.name),
+    version: prompt('version', '0.0.0'),
+    decription: prompt('description', ''),
+    main: prompt('entry point', 'index.js'),
+    keywords: prompt(function (s) { return s.split(/\s+/) }),
+    author: prompt('author', 'Joe Bloggs <joe.bloggs@gmail.com> (joebloggs.com)'),
+    license: prompt('license', 'ISC'),
+    repository: prompt('github repository url', '', function (url) {
+        if (url) {
+            run('touch README.md');
+            run('git init');
+            run('git add README.md');
+            run('git commit -m "first commit"');
+            run(`git remote add origin ${url}`);
+            run('git push -u origin master');
+
+            return url;
+        }
+    })
+}
+
+console.log(this)
