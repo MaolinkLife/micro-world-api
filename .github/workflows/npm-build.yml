@@ -1,5 +1,6 @@
 name: GitHub Pages Deploy
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -10,7 +11,16 @@ on:
       - master
       - dev
       - release/*
-  workflow_dispatch:
+
+permissions:
+  contents: read
+  # Needed for the action
+  pull-requests: read
+
+# This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -20,81 +30,19 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: npm
+
       - name: Download a Build Artifact
         uses: actions/download-artifact@v3.0.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Artifact name
           name: github-page
+          # Destination path
           path: path/to/artifact/
-
-    # steps:
-    #   - name: Checkout repository
-    #     uses: actions/checkout@
-    #     with:
-    #       node-version: 16
-    #       token: ${{ secrets.GITHUB_TOKEN }}
-
-    #   - run: actions/setup-node@v3
-
-    #   - uses: actions/setup-node@v3
-
-    #   - name: npm install, build, and test
-    #     run: npm install
-
-    #   - name: Archive production artifacts
-    #     uses: actions/upload-artifact@v3
-    #     with:
-    #       token: ${{ secrets.GITHUB_TOKEN }}
-    #       shell: bash
-    #       name: github-pages
-    #       path: |
-    #         dist
-    #         !dist/**/*.md
-    #         path/to/artifact/
-
-    #   - name: Archive code coverage results
-    #     uses: actions/upload-artifact@v3
-    #     with:
-    #       name: github-pages
-    #       path: path/to/artifact/
-    #       working-directory: path/to/artifact/
-
-    # - uses: actions/checkout@v3
-
-    # - uses: actions/download-artifact@v3
-    #   with:
-    #       token: ${{ secrets.GITHUB_TOKEN }}
-    #       name: github-pages
-    #       path: path/to/artifact
-    # - env:
-    #       MY_ART: github-pages
-    #       working-directory: path/to/artifact
-    # - run: echo Complete
-
-  # # Deploy job
-  # deploy:
-  #     # Add a dependency to the build job
-  #     needs: build
-
-  #     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-
-  #     permissions:
-  #         pages: write # to deploy to Pages
-  #         id-token: write # to verify the deployment originates from an appropriate source
-
-  #     # Deploy to the github-pages environment
-  #     environment:
-  #         name: github-pages
-  #         url: ${{ steps.deployment.outputs.page_url }}
-
-  #     # Specify runner + deployment step
-  #     runs-on: ubuntu-latest
-  #     steps:
-  #         - name: Deploy to GitHub Pages
-  #           id: deployment
-  #           run: actions/deploy-pages@v1
-  #           env:
-  #               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         - run: |
-  #               npm ci
-  #               npm start
