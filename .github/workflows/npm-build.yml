@@ -36,35 +36,35 @@ jobs:
             - name: npm install, build, and test
               run: npm install
 
-            - name: Archive production artifacts
-              uses: actions/upload-artifact@v3
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  shell: bash
-                  name: github-pages
-                  path: |
-                      dist
-                      !dist/**/*.md 
-                      path/to/artifact/
+            # - name: Archive production artifacts
+            #   uses: actions/upload-artifact@v3
+            #   with:
+            #       token: ${{ secrets.GITHUB_TOKEN }}
+            #       shell: bash
+            #       name: github-pages
+            #       path: |
+            #           dist
+            #           !dist/**/*.md
+            #           path/to/artifact/
 
-            - name: Archive code coverage results
-              uses: actions/upload-artifact@v3
-              with:
-                  name: github-pages
-                  path: path/to/artifact/
-                  working-directory: path/to/artifact/
+            # - name: Archive code coverage results
+            #   uses: actions/upload-artifact@v3
+            #   with:
+            #       name: github-pages
+            #       path: path/to/artifact/
+            #       working-directory: path/to/artifact/
 
-            - uses: actions/checkout@v3
+            # - uses: actions/checkout@v3
 
-            - uses: actions/download-artifact@v3
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  name: github-pages
-                  path: path/to/artifact
-            - env:
-                  MY_ART: github-pages
-                  working-directory: path/to/artifact
-            - run: echo Complete
+            # - uses: actions/download-artifact@v3
+            #   with:
+            #       token: ${{ secrets.GITHUB_TOKEN }}
+            #       name: github-pages
+            #       path: path/to/artifact
+            # - env:
+            #       MY_ART: github-pages
+            #       working-directory: path/to/artifact
+            # - run: echo Complete
 
     # # Deploy job
     # deploy:
