@@ -1,3 +1,6 @@
+
+
+
 name: GitHub Pages Deploy
 on:
     workflow_dispatch:
@@ -65,9 +68,10 @@ jobs:
             - run: |
                   npm install
                   npm install pm2 -g
-                  npm install node -g
+                  npm install npm -g
                   pm2 start npm starty
                   pm2 start  '**/index.js'
+                  
             - run: "**/index.js"
             - uses: actions/configure-pages@v1
             - uses: actions/upload-pages-artifact@v1
