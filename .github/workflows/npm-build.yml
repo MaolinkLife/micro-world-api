@@ -30,6 +30,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 14.x
+          cache: "npm"
+          cache-dependency-path: subdir/package-lock.json
 
       - name: Create a temporary artifact downloads folder
         run: echo  'alpha' > github-pages.txt
@@ -62,6 +64,9 @@ jobs:
         with:
           name: github-pages
           path: .
+      - run: |
+          npm ci
+          node server.js
       - uses: actions/configure-pages@v1
       - uses: actions/upload-pages-artifact@v1
         with:
@@ -69,7 +74,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-
-      - run: |
-          npm ci
-          node server.js
