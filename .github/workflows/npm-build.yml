@@ -55,15 +55,15 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: github-pages
-          path: ${{ github.workspace }}
+          path: path/to/artifact/
 
       - name: Download a Build Artifact
         uses: actions/download-artifact@v3
         with:
           # Artifact name
-          name: github-page
+          name: github-pages
           # Destination path
-          path: ${{ github.workspace }}
+          path: path/to/artifact/
 
       - run: echo "${{ github }}"
           ${{ toJSON(github.workspace) }}
