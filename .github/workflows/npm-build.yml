@@ -52,17 +52,18 @@ jobs:
           cd ../../../
 
       - name: Step 3 - Use the Upload Artifact GitHub Action
-        uses: actions/upload-artifact@v3.1.1
+        uses: actions/upload-artifact@v3
         with:
           name: github-pages
-          path: artifact
+          path: ${{ github.workspace }}
 
       - name: Download a Build Artifact
-        uses: actions/download-artifact@v3.0.1
+        uses: actions/download-artifact@v
         with:
           # Artifact name
           name: github-page
           # Destination path
-          path: path/to/artifact/
+          path: ${{ github.workspace }}
 
       - run: echo "${{ github }}"
+          ${{ toJSON(github.workspace) }}
