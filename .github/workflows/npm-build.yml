@@ -16,31 +16,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v3
         with:
-          name: my-artifact
-          path: path/to/artifact
+          fetch-depth: 0
 
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: path/to/artifact
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: github-page
+          path: path/to/artifact/
+
     # steps:
     #   - name: Checkout repository
-    #     uses: actions/checkout@v3
+    #     uses: actions/checkout@
     #     with:
     #       node-version: 16
     #       token: ${{ secrets.GITHUB_TOKEN }}
 
     #   - run: actions/setup-node@v3
-
-    #   - name: Download a Build Artifact
-    #     uses: actions/download-artifact@v3.0.1
-    #     with:
-    #       token: ${{ secrets.GITHUB_TOKEN }}
-    #       name: github-page
-    #       path: path/to/artifact/
 
     #   - uses: actions/setup-node@v3
 
