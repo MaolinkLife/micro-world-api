@@ -40,7 +40,7 @@ jobs:
           # cache: npm
 
       - name: Step 1 - Create a temporary artifact downloads folder
-        run: mkdir path/to/artifact/
+        run: mkdir "path/to/artifact"
 
       - name: step 2 - Add artifacts to publish to the temp folder
         run: |
