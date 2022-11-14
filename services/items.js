@@ -20,15 +20,15 @@ module.exports = {
         // throw new Error('<Error message>'); // this will result in a 500
 
         var data = [
-                [
-                    {
-                        description: "<string>",
-                        itemId: "<integer>",
-                        name: "<string>",
-                        price: "<integer>",
-                    },
-                ],
+            [
+                {
+                    description: "<string>",
+                    itemId: "<integer>",
+                    name: "<string>",
+                    price: "<integer>",
+                },
             ],
+        ],
             status = "200";
 
         return {
@@ -66,11 +66,11 @@ module.exports = {
         };
 
         var data = {
-                description: "<string>",
-                itemId: "<integer>",
-                name: "<string>",
-                price: "<integer>",
-            },
+            description: "<string>",
+            itemId: "<integer>",
+            name: "<string>",
+            price: "<integer>",
+        },
             status = "200";
 
         return {
