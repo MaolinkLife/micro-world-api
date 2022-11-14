@@ -16,55 +16,66 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v3
         with:
-          node-version: 16
-          token: ${{ secrets.GITHUB_TOKEN }}
-          run: actions/setup-node@v3
+          name: my-artifact
+          path: path/to/artifact
 
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: path/to/artifact
+    # steps:
+    #   - name: Checkout repository
+    #     uses: actions/checkout@v3
+    #     with:
+    #       node-version: 16
+    #       token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v3.0.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: github-page
-          path: path/to/artifact/
+    #   - run: actions/setup-node@v3
 
-      - uses: actions/setup-node@v3
+    #   - name: Download a Build Artifact
+    #     uses: actions/download-artifact@v3.0.1
+    #     with:
+    #       token: ${{ secrets.GITHUB_TOKEN }}
+    #       name: github-page
+    #       path: path/to/artifact/
 
-      - name: npm install, build, and test
-        run: npm install
+    #   - uses: actions/setup-node@v3
 
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          shell: bash
-          name: github-pages
-          path: |
-            dist
-            !dist/**/*.md
-            path/to/artifact/
+    #   - name: npm install, build, and test
+    #     run: npm install
 
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
-        with:
-          name: github-pages
-          path: path/to/artifact/
-          working-directory: path/to/artifact/
+    #   - name: Archive production artifacts
+    #     uses: actions/upload-artifact@v3
+    #     with:
+    #       token: ${{ secrets.GITHUB_TOKEN }}
+    #       shell: bash
+    #       name: github-pages
+    #       path: |
+    #         dist
+    #         !dist/**/*.md
+    #         path/to/artifact/
 
-      # - uses: actions/checkout@v3
+    #   - name: Archive code coverage results
+    #     uses: actions/upload-artifact@v3
+    #     with:
+    #       name: github-pages
+    #       path: path/to/artifact/
+    #       working-directory: path/to/artifact/
 
-      # - uses: actions/download-artifact@v3
-      #   with:
-      #       token: ${{ secrets.GITHUB_TOKEN }}
-      #       name: github-pages
-      #       path: path/to/artifact
-      # - env:
-      #       MY_ART: github-pages
-      #       working-directory: path/to/artifact
-      # - run: echo Complete
+    # - uses: actions/checkout@v3
+
+    # - uses: actions/download-artifact@v3
+    #   with:
+    #       token: ${{ secrets.GITHUB_TOKEN }}
+    #       name: github-pages
+    #       path: path/to/artifact
+    # - env:
+    #       MY_ART: github-pages
+    #       working-directory: path/to/artifact
+    # - run: echo Complete
 
   # # Deploy job
   # deploy:
