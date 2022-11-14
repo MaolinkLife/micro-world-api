@@ -62,6 +62,7 @@ jobs:
         with:
           name: github-pages
           path: .
+      - run: npm install
       - run: node server.js
       - uses: actions/configure-pages@v1
       - uses: actions/upload-pages-artifact@v1
