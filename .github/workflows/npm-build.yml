@@ -84,7 +84,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: actions/download-artifact@master
         with:
-          name: page
+          name: github-pages
           path: .
       - uses: actions/configure-pages@v1
       - uses: actions/upload-pages-artifact@v1
