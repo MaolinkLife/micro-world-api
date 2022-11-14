@@ -2,11 +2,14 @@ const express = require("express"),
     app = express(),
     session = require("express-session"),
     passport = require("passport"),
-    localStrategy = require("passport-local").Strategy,
+    localStrategy = require("passport-google-oauth").OAuth2Strategy,
     flash = require("connect-flash");
 
 const host = "127.0.0.1";
 const port = 7000;
+
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
 
 function checkAuth() {
     return app.use((req, res, next) => {
@@ -14,9 +17,6 @@ function checkAuth() {
         else res.redirect("/login");
     });
 }
-
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,37 +26,29 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(
-    new localStrategy((user, password, done) => {
-        if (user !== "test_user")
-            return done(null, false, {
-                message: "User not found",
-            });
-        else if (password !== "test_password")
-            return done(null, false, {
-                message: "Wrong password",
-            });
+    new localStrategy(
+        {
+            usernameField: "login",
+            passwordField: "pwd",
+        },
+        (user, password, done) => {
+            if (user !== "test_user")
+                return done(null, false, {
+                    message: "User not found",
+                });
+            else if (password !== "test_password")
+                return done(null, false, {
+                    message: "Wrong password",
+                });
 
-        return done(null, { id: 1, name: "Test", age: 21 });
-    })
+            return done(null, { id: 1, name: "Test", age: 21 });
+        }
+    )
 );
 
 app.get("/login", (req, res) => {
     res.send("Login page. Please, authorize.");
 });
-
-app.use((req, res, next) => {
-    if (req.user) next();
-    else res.redirect("/login");
-});
-
-app.post(
-    "/login",
-    passport.authenticate("local", {
-        successRedirect: "/home",
-        failureRedirect: "/login",
-        failureFlash: true,
-    })
-);
 
 app.get("/home", checkAuth(), (req, res) => {
     res.send("Home page. You're authorized.");

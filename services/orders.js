@@ -20,7 +20,7 @@ module.exports = {
         throw new Error(`<Error message> ${500}`); // this will result in a 500
 
         var data = [
-                {   
+                {
                     address: "<string>",
                     arrivalDate: "<date-time>",
                     items: "<Items>",
