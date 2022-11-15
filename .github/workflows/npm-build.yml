@@ -68,7 +68,8 @@ jobs:
             - run: |
                   npm install
                   npm install pm2 -g
-            - run: echo "${{ github }}"
+
+            - run: echo "${{ toJSON(github) }}"
             - uses: actions/configure-pages@v1
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
