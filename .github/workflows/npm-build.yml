@@ -68,9 +68,7 @@ jobs:
             - run: |
                   npm install
                   npm install pm2 -g
-                  npm install npm -g
-                  pm2 start npm start
-          
+                  npm install npm -g         
             - run: "**/index.js"
             - uses: actions/configure-pages@v1
             - uses: actions/upload-pages-artifact@v1
