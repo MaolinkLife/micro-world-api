@@ -65,17 +65,14 @@ jobs:
               with:
                   name: github-pages
                   path: .
-            - run: |
-                  npm install
-                  npm install pm2 -g
-
-            - run: echo "${{ toJSON(github) }}"
+#             - run: |
+#                   npm install
+#                   npm install pm2 -g
             - uses: actions/configure-pages@v1
               with:
                   token: ${{ secrets.DEPLOY_TOKEN }}
             - uses: actions/upload-pages-artifact@v1
               with:
-                  token: ${{ secrets.DEPLOY_TOKEN }}
                   path: .
             - name: Deploy to GitHub Pages
               id: deployment
