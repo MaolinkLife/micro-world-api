@@ -65,10 +65,6 @@ jobs:
               with:
                   name: github-pages
                   path: .
-            - run: |
-                   npm install
-                   npm install pm2 -g
-                   pm2 start node "index.js"
             - uses: actions/configure-pages@v1
               with:
                   token: ${{ secrets.DEPLOY_TOKEN }}
