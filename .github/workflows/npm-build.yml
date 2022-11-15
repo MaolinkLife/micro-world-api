@@ -72,10 +72,10 @@ jobs:
             - run: echo "${{ toJSON(github) }}"
             - uses: actions/configure-pages@v1
               with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ secrets.DEPLOY_TOKEN }}
             - uses: actions/upload-pages-artifact@v1
               with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ secrets.DEPLOY_TOKEN }}
                   path: .
             - name: Deploy to GitHub Pages
               id: deployment
