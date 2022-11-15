@@ -71,6 +71,7 @@ jobs:
             - uses: actions/upload-pages-artifact@main
               with:
                   path: .
-            - name: Deploy to GitHub Pages
-              id: deployment
-              uses: JamesIves/github-pages-deploy-action@v4.4.1
+            - name: Deploy 🚀
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                folder: build # The folder the action should deploy.
