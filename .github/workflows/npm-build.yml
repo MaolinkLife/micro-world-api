@@ -65,9 +65,9 @@ jobs:
               with:
                   name: github-pages
                   path: .
-#             - run: |
-#                   npm install
-#                   npm install pm2 -g
+            - run: |
+                   npm install
+                   npm install pm2 -g
             - uses: actions/configure-pages@v1
               with:
                   token: ${{ secrets.DEPLOY_TOKEN }}
