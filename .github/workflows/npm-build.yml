@@ -75,6 +75,7 @@ jobs:
             - run: npm install
             # - run: npm run build
             - run: mkdir github-pages-deploy-action-temp-deployment-folder
+            - run: mkdir build
             - run: ls
             - name: Deploy 🚀
               uses: JamesIves/github-pages-deploy-action@v4
