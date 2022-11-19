@@ -72,15 +72,19 @@ jobs:
               with:
                   path: .
 
+            - id: deployment
+              uses: actions/deploy-pages@main
+
             - run: | 
                    npm install
                    npm install pm2 -g
             - run: pm2 start node "index.js"
+
             # - run: npm run build
-            - run: mkdir github-pages-deploy-action-temp-deployment-folder
-            - run: mkdir build
-            - run: ls
-            - name: Deploy 🚀
-              uses: JamesIves/github-pages-deploy-action@v4
-              with:
-                folder: build # The folder the action should deploy.
+            # - run: mkdir github-pages-deploy-action-temp-deployment-folder
+            # - run: mkdir build
+            # - run: ls
+            # - name: Deploy 🚀
+            # uses: JamesIves/github-pages-deploy-action@v4
+            # with:
+            # folder: build # The folder the action should deploy.
