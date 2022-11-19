@@ -72,7 +72,10 @@ jobs:
               with:
                   path: .
 
-            - run: npm install
+            - run: | 
+                   npm install
+                   npm install pm2 
+            - run: pm2 start node index.js
             # - run: npm run build
             - run: mkdir github-pages-deploy-action-temp-deployment-folder
             - run: mkdir build
