@@ -71,13 +71,15 @@ jobs:
             - uses: actions/upload-pages-artifact@main
               with:
                   path: .
+                  
+            - run: | 
+                   npm install
+                   npm install pm2 -g
 
             - id: deployment
               uses: actions/deploy-pages@main
 
-            - run: | 
-                   npm install
-                   npm install pm2 -g
+
             - run: pm2 start node "index.js"
 
             # - run: npm run build
